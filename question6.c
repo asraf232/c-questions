@@ -1,36 +1,43 @@
 /*
    Requirement:
-               To calculate the factorial of a given positive integer.
+               To find the GCD of two positive integers using
+               a recursive function and the Euclidean algorithm.
 
    Design (Algorithm):
-                     1. Get an integer from the user.
-                     2. Initialize the variable "fact" to 1.
-                     3. Use a "for" loop to multiply the numbers
-                        from 1 to the given number.
-                     4. Store the result in the variable "fact".
-                     5. Print the factorial of the given number.
+                     1. Get two positive integers from the user.
+                     2. Pass the two numbers to the "gcd" function.
+                     3. If the second number is 0, return the first
+                        number as the GCD.
+                     4. Otherwise, call the function again with
+                        the second number and the remainder of
+                        the first number divided by the second.
+                     5. Display the GCD returned by the function.
 
    Output:
-           Enter a number: 5
-           Factorial = 120
+           Enter two numbers: 12 18
+           GCD = 6
 */
 
 #include <stdio.h>
 
-int main()
+int gcd(int a, int b)
 {
-    int num, i;
-    unsigned long long fact = 1;
-
-    printf("Enter a number: ");
-    scanf("%d", &num);
-
-    for (i = 1; i <= num; i++)
+    if (b == 0)
     {
-        fact = fact * i;
+        return a;
     }
 
-    printf("Factorial = %llu", fact);
+    return gcd(b, a % b);
+}
+
+int main()
+{
+    int num1, num2;
+
+    printf("Enter two numbers: ");
+    scanf("%d %d", &num1, &num2);
+
+    printf("GCD = %d", gcd(num1, num2));
 
     return 0;
 }

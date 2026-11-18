@@ -1,98 +1,54 @@
 /*
    Requirement:
-               To perform arithmetic operations such as addition,
-               subtraction, multiplication, and division using
-               separate functions.
+               To check whether a given string is a palindrome
+               or not.
 
    Design (Algorithm):
-                     1. Get two floating-point numbers and an
-                        arithmetic operator from the user.
-                     2. Create separate functions for addition,
-                        subtraction, multiplication, and division.
-                     3. Use a selector function to check the
-                        operator and call the appropriate function.
-                     4. If the operator is division, check whether
-                        the second number is zero.
-                     5. Return the result to the main function
-                        and display it.
+                     1. Get a string from the user.
+                     2. Find the length of the string.
+                     3. Compare the first and last characters
+                        of the string.
+                     4. Use a loop to compare the characters
+                        from both ends.
+                     5. If all characters match, print that
+                        the string is a palindrome.
+                     6. Otherwise, print that the string is
+                        not a palindrome.
 
    Output:
-           Enter two numbers: 10 5
-           Enter an operator (+, -, *, /): +
-           Result = 15.00
+           Enter a string: madam
+           The string is a palindrome.
 */
 
 #include <stdio.h>
-
-float add(float a, float b)
-{
-    return a + b;
-}
-
-float subtract(float a, float b)
-{
-    return a - b;
-}
-
-float multiply(float a, float b)
-{
-    return a * b;
-}
-
-float divide(float a, float b)
-{
-    if (b == 0)
-    {
-        printf("Error: Division by zero is not allowed.");
-        return 0;
-    }
-
-    return a / b;
-}
-
-float calculate(float a, float b, char op)
-{
-    switch (op)
-    {
-        case '+':
-            return add(a, b);
-
-        case '-':
-            return subtract(a, b);
-
-        case '*':
-            return multiply(a, b);
-
-        case '/':
-            return divide(a, b);
-
-        default:
-            printf("Invalid operator.");
-            return 0;
-    }
-}
+#include <string.h>
 
 int main()
 {
-    float num1, num2, result;
-    char op;
+    char str[100];
+    int i, len, flag = 1;
 
-    printf("Enter two numbers: ");
-    scanf("%f %f", &num1, &num2);
+    printf("Enter a string: ");
+    scanf("%99s", str);
 
-    printf("Enter an operator (+, -, *, /): ");
-    scanf(" %c", &op);
+    len = strlen(str);
 
-    result = calculate(num1, num2, op);
-
-    if (op == '/' && num2 == 0)
+    for (i = 0; i < len / 2; i++)
     {
-        return 0;
+        if (str[i] != str[len - i - 1])
+        {
+            flag = 0;
+            break;
+        }
     }
 
-    if (op == '+' || op == '-' || op == '*' || op == '/')
+    if (flag == 1)
     {
-        printf("Result = %.2f", result);
+        printf("The string is a palindrome.");
+    }
+    else
+    {
+        printf("The string is not a palindrome.");
     }
 
     return 0;

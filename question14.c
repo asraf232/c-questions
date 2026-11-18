@@ -1,60 +1,59 @@
 /*
    Requirement:
-               To convert an integer into a string of characters.
+               To check whether a given string is a pangram or not.
 
    Design (Algorithm):
-                     1. Get an integer from the user.
-                     2. Check whether the number is negative.
-                     3. Extract each digit using the modulus (%)
-                        operator and convert it into a character.
-                     4. Store the digits in a character array.
-                     5. Reverse the digits to get the correct order.
-                     6. Add the null character at the end and
-                        display the resulting string.
+                     1. Get a sentence from the user.
+                     2. Initialize an array to store the presence
+                        of all 26 letters of the alphabet.
+                     3. Use a loop to check each character in
+                        the string.
+                     4. Convert uppercase letters into lowercase
+                        and mark the corresponding alphabet.
+                     5. Check whether all 26 letters are present.
+                     6. If all letters are present, print that
+                        the string is a pangram; otherwise, print
+                        that it is not a pangram.
 
    Output:
-           Enter an integer: -1234
-           String value = -1234
+           Enter a sentence: The quick brown fox jumps over the lazy dog
+           The string is a pangram.
 */
 
 #include <stdio.h>
+#include <ctype.h>
 
 int main()
 {
-    int num, i = 0, j;
-    char str[20], temp;
-    int negative = 0;
+    char str[200];
+    int alphabet[26] = {0};
+    int i, count = 0;
 
-    printf("Enter an integer: ");
-    scanf("%d", &num);
+    printf("Enter a sentence: ");
+    fgets(str, sizeof(str), stdin);
 
-    if (num < 0)
+    for (i = 0; str[i] != '\0'; i++)
     {
-        negative = 1;
-        num = -num;
+        char ch = tolower((unsigned char)str[i]);
+
+        if (ch >= 'a' && ch <= 'z')
+        {
+            if (alphabet[ch - 'a'] == 0)
+            {
+                alphabet[ch - 'a'] = 1;
+                count++;
+            }
+        }
     }
 
-    do
+    if (count == 26)
     {
-        str[i++] = (num % 10) + '0';
-        num = num / 10;
-    } while (num > 0);
-
-    if (negative)
-    {
-        str[i++] = '-';
+        printf("The string is a pangram.");
     }
-
-    str[i] = '\0';
-
-    for (j = 0; j < i / 2; j++)
+    else
     {
-        temp = str[j];
-        str[j] = str[i - j - 1];
-        str[i - j - 1] = temp;
+        printf("The string is not a pangram.");
     }
-
-    printf("String value = %s", str);
 
     return 0;
 }

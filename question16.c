@@ -1,43 +1,43 @@
 /*
-   Requirement:
-               To reverse the characters of a given string
-               using an iterative approach.
+Requirement:
+    To write a C program to convert all uppercase letters
+    in a string into lowercase letters.
 
-   Design (Algorithm):
-                     1. Get a string from the user.
-                     2. Find the length of the string.
-                     3. Use a loop to swap the first and last
-                        characters of the string.
-                     4. Continue swapping the characters until
-                        the middle of the string is reached.
-                     5. Print the reversed string.
+Design (Algorithm):
+    1. Start the program.
+    2. Get a string from the user.
+    3. Use a loop to check each character in the string.
+    4. If the character is an uppercase letter (A to Z),
+       add 32 to convert it into lowercase.
+    5. Leave lowercase letters, numbers, and special
+       characters unchanged.
+    6. Display the modified string.
+    7. Stop the program.
 
-   Output:
-           Enter a string: hello
-           Reversed string = olleh
+Output:
+    Enter a string: HELLO World 123!
+    Lowercase string: hello world 123!
 */
 
 #include <stdio.h>
-#include <string.h>
 
 int main()
 {
-    char str[100], temp;
-    int i, len;
+    char str[100];
+    int i;
 
     printf("Enter a string: ");
-    scanf("%99s", str);
+    fgets(str, sizeof(str), stdin);
 
-    len = strlen(str);
-
-    for (i = 0; i < len / 2; i++)
+    for (i = 0; str[i] != '\0'; i++)
     {
-        temp = str[i];
-        str[i] = str[len - i - 1];
-        str[len - i - 1] = temp;
+        if (str[i] >= 'A' && str[i] <= 'Z')
+        {
+            str[i] = str[i] + 32;
+        }
     }
 
-    printf("Reversed string = %s", str);
+    printf("Lowercase string: %s", str);
 
     return 0;
 }

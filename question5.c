@@ -1,60 +1,62 @@
 /*
    Requirement:
-               To check whether a given integer is a prime number
-               or not.
+               To check whether a given number is a Perfect Number
+               using a separate function.
 
    Design (Algorithm):
-                     1. Get an integer from the user.
-                     2. If the number is less than 2, print that
-                        it is not a prime number.
-                     3. Otherwise, use a "for" loop to check
-                        whether the number is divisible by any
-                        number from 2 to num - 1.
-                     4. If it is divisible, print that the number
-                        is not prime.
-                     5. Otherwise, print that the number is prime.
+                     1. Get a positive integer from the user.
+                     2. Pass the number to a function named
+                        "isPerfect".
+                     3. Use a "for" loop to find the proper divisors
+                        of the number and calculate their sum.
+                     4. If the sum equals the original number,
+                        return 1; otherwise, return 0.
+                     5. Display whether the number is perfect
+                        or not.
 
-   Output 1:
-           Enter a number: 5
-           The number is prime.
-
-   Output 2:
+   Output:
            Enter a number: 6
-           The number is not prime.
+           The number is a Perfect Number.
 */
 
 #include <stdio.h>
 
+int isPerfect(int num)
+{
+    int sum = 0;
+
+    for (int i = 1; i < num; i++)
+    {
+        if (num % i == 0)
+        {
+            sum = sum + i;
+        }
+    }
+
+    if (sum == num)
+    {
+        return 1;
+    }
+    else
+    {
+        return 0;
+    }
+}
+
 int main()
 {
-    int num, i, flag = 0;
+    int num;
 
     printf("Enter a number: ");
     scanf("%d", &num);
 
-    if (num < 2)
+    if (isPerfect(num))
     {
-        flag = 1;
+        printf("The number is a Perfect Number.");
     }
     else
     {
-        for (i = 2; i < num; i++)
-        {
-            if (num % i == 0)
-            {
-                flag = 1;
-                break;
-            }
-        }
-    }
-
-    if (flag == 0)
-    {
-        printf("The number is prime.");
-    }
-    else
-    {
-        printf("The number is not prime.");
+        printf("The number is not a Perfect Number.");
     }
 
     return 0;

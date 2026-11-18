@@ -1,41 +1,39 @@
 /*
 Requirement:
-    To write a C program to find the second largest and
-    second smallest elements in an array without sorting.
+    To write a C program to find all pairs of elements
+    in an array whose sum is equal to a given target value.
 
 Design (Algorithm):
     1. Start the program.
     2. Get the size and elements of the array from the user.
-    3. Initialize the largest and smallest values using
-       the first element.
-    4. Find the largest and smallest elements in the array.
-    5. Find the second largest and second smallest distinct
-       elements without sorting the array.
-    6. If second largest or second smallest does not exist,
-       display an appropriate message.
-    7. Otherwise, display both values.
+    3. Get the target sum from the user.
+    4. Use two nested loops to check all possible pairs.
+    5. If the sum of two elements equals the target,
+       display the pair.
+    6. Do not pair an element with itself.
+    7. If no valid pair is found, display an appropriate message.
     8. Stop the program.
 
 Output:
     Enter the size of the array: 5
-    Enter the array elements: 10 20 5 40 30
-    Second largest element: 30
-    Second smallest element: 10
+    Enter the array elements: 2 4 3 5 7
+    Enter the target sum: 7
+    Pairs whose sum is 7:
+    (2, 5)
+    (4, 3)
 */
 
 #include <stdio.h>
-#include <limits.h>
 
 int main()
 {
-    int arr[100], n, i;
-    int largest = INT_MIN, secondLargest = INT_MIN;
-    int smallest = INT_MAX, secondSmallest = INT_MAX;
+    int arr[100], n, target;
+    int i, j, found = 0;
 
     printf("Enter the size of the array: ");
     scanf("%d", &n);
 
-    if (n < 2 || n > 100)
+    if (n < 1 || n > 100)
     {
         printf("Invalid array size.\n");
         return 0;
@@ -47,37 +45,26 @@ int main()
         scanf("%d", &arr[i]);
     }
 
+    printf("Enter the target sum: ");
+    scanf("%d", &target);
+
+    printf("Pairs whose sum is %d:\n", target);
+
     for (i = 0; i < n; i++)
     {
-        if (arr[i] > largest)
+        for (j = i + 1; j < n; j++)
         {
-            secondLargest = largest;
-            largest = arr[i];
-        }
-        else if (arr[i] > secondLargest && arr[i] != largest)
-        {
-            secondLargest = arr[i];
-        }
-
-        if (arr[i] < smallest)
-        {
-            secondSmallest = smallest;
-            smallest = arr[i];
-        }
-        else if (arr[i] < secondSmallest && arr[i] != smallest)
-        {
-            secondSmallest = arr[i];
+            if (arr[i] + arr[j] == target)
+            {
+                printf("(%d, %d)\n", arr[i], arr[j]);
+                found = 1;
+            }
         }
     }
 
-    if (secondLargest == INT_MIN || secondSmallest == INT_MAX)
+    if (found == 0)
     {
-        printf("Second largest and second smallest distinct elements do not exist.\n");
-    }
-    else
-    {
-        printf("Second largest element: %d\n", secondLargest);
-        printf("Second smallest element: %d\n", secondSmallest);
+        printf("No pairs found.\n");
     }
 
     return 0;

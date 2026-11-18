@@ -1,43 +1,99 @@
 /*
    Requirement:
-               To find the GCD of two positive integers using
-               a recursive function and the Euclidean algorithm.
+               To perform arithmetic operations such as addition,
+               subtraction, multiplication, and division using
+               separate functions.
 
    Design (Algorithm):
-                     1. Get two positive integers from the user.
-                     2. Pass the two numbers to the "gcd" function.
-                     3. If the second number is 0, return the first
-                        number as the GCD.
-                     4. Otherwise, call the function again with
-                        the second number and the remainder of
-                        the first number divided by the second.
-                     5. Display the GCD returned by the function.
+                     1. Get two floating-point numbers and an
+                        arithmetic operator from the user.
+                     2. Create separate functions for addition,
+                        subtraction, multiplication, and division.
+                     3. Use a selector function to check the
+                        operator and call the appropriate function.
+                     4. If the operator is division, check whether
+                        the second number is zero.
+                     5. Return the result to the main function
+                        and display it.
 
    Output:
-           Enter two numbers: 12 18
-           GCD = 6
+           Enter two numbers: 10 5
+           Enter an operator (+, -, *, /): +
+           Result = 15.00
 */
 
 #include <stdio.h>
 
-int gcd(int a, int b)
+float add(float a, float b)
+{
+    return a + b;
+}
+
+float subtract(float a, float b)
+{
+    return a - b;
+}
+
+float multiply(float a, float b)
+{
+    return a * b;
+}
+
+float divide(float a, float b)
 {
     if (b == 0)
     {
-        return a;
+        printf("Error: Division by zero is not allowed.");
+        return 0;
     }
 
-    return gcd(b, a % b);
+    return a / b;
+}
+
+float calculate(float a, float b, char op)
+{
+    switch (op)
+    {
+        case '+':
+            return add(a, b);
+
+        case '-':
+            return subtract(a, b);
+
+        case '*':
+            return multiply(a, b);
+
+        case '/':
+            return divide(a, b);
+
+        default:
+            printf("Invalid operator.");
+            return 0;
+    }
 }
 
 int main()
 {
-    int num1, num2;
+    float num1, num2, result;
+    char op;
 
     printf("Enter two numbers: ");
-    scanf("%d %d", &num1, &num2);
+    scanf("%f %f", &num1, &num2);
 
-    printf("GCD = %d", gcd(num1, num2));
+    printf("Enter an operator (+, -, *, /): ");
+    scanf(" %c", &op);
+
+    result = calculate(num1, num2, op);
+
+    if (op == '/' && num2 == 0)
+    {
+        return 0;
+    }
+
+    if (op == '+' || op == '-' || op == '*' || op == '/')
+    {
+        printf("Result = %.2f", result);
+    }
 
     return 0;
 }

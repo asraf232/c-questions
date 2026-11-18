@@ -1,40 +1,43 @@
 /*
    Requirement:
-               To convert a string of digits into its equivalent
-               integer value without using built-in conversion
-               functions.
+               To reverse the characters of a given string
+               using an iterative approach.
 
    Design (Algorithm):
-                     1. Get a number as a string from the user.
-                     2. Initialize the variable "num" to 0.
-                     3. Use a "for" loop to read each character
-                        in the string.
-                     4. Convert each character into a digit by
-                        subtracting '0'.
-                     5. Multiply "num" by 10 and add the digit.
-                     6. Print the final integer value.
+                     1. Get a string from the user.
+                     2. Find the length of the string.
+                     3. Use a loop to swap the first and last
+                        characters of the string.
+                     4. Continue swapping the characters until
+                        the middle of the string is reached.
+                     5. Print the reversed string.
 
    Output:
-           Enter a number as a string: 1234
-           Integer value = 1234
+           Enter a string: hello
+           Reversed string = olleh
 */
 
 #include <stdio.h>
+#include <string.h>
 
 int main()
 {
-    char str[20];
-    int num = 0;
+    char str[100], temp;
+    int i, len;
 
-    printf("Enter a number as a string: ");
-    scanf("%19s", str);
+    printf("Enter a string: ");
+    scanf("%99s", str);
 
-    for (int i = 0; str[i] != '\0'; i++)
+    len = strlen(str);
+
+    for (i = 0; i < len / 2; i++)
     {
-        num = num * 10 + (str[i] - '0');
+        temp = str[i];
+        str[i] = str[len - i - 1];
+        str[len - i - 1] = temp;
     }
 
-    printf("Integer value = %d", num);
+    printf("Reversed string = %s", str);
 
     return 0;
 }

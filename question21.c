@@ -1,46 +1,62 @@
 /*
 Requirement:
-    To write a C program to extract n bits from an integer
-    starting from a given bit position.
+    To write a C program to remove duplicate elements
+    from a given array and display only unique elements.
 
 Design (Algorithm):
     1. Start the program.
-    2. Get an integer, starting bit position, and number
-       of bits to extract from the user.
-    3. Right-shift the number by the starting position.
-    4. Create a mask containing n number of 1s.
-    5. Use the bitwise AND (&) operator to extract the
-       required bits.
-    6. Display the extracted value.
-    7. Stop the program.
+    2. Get the size and elements of the array from the user.
+    3. Use two loops to compare the array elements.
+    4. If duplicate elements are found, shift the remaining
+       elements one position to the left.
+    5. Decrease the array size after removing a duplicate.
+    6. Repeat the process until all duplicates are removed.
+    7. Display the array containing unique elements.
+    8. Stop the program.
 
 Output:
-    Enter an integer: 10
-    Enter starting bit position: 1
-    Enter number of bits to extract: 3
-    Extracted value: 5
+    Enter the size of the array: 6
+    Enter the array elements: 10 20 10 30 20 40
+    Array after removing duplicates: 10 20 30 40
 */
 
 #include <stdio.h>
 
 int main()
 {
-    unsigned int num, mask, result;
-    int pos, n;
+    int arr[100], n, i, j, k;
 
-    printf("Enter an integer: ");
-    scanf("%u", &num);
-
-    printf("Enter starting bit position: ");
-    scanf("%d", &pos);
-
-    printf("Enter number of bits to extract: ");
+    printf("Enter the size of the array: ");
     scanf("%d", &n);
 
-    mask = (1U << n) - 1;
-    result = (num >> pos) & mask;
+    printf("Enter the array elements: ");
+    for (i = 0; i < n; i++)
+    {
+        scanf("%d", &arr[i]);
+    }
 
-    printf("Extracted value: %u\n", result);
+    for (i = 0; i < n; i++)
+    {
+        for (j = i + 1; j < n; j++)
+        {
+            if (arr[i] == arr[j])
+            {
+                for (k = j; k < n - 1; k++)
+                {
+                    arr[k] = arr[k + 1];
+                }
+
+                n--;
+                j--;
+            }
+        }
+    }
+
+    printf("Array after removing duplicates: ");
+    for (i = 0; i < n; i++)
+    {
+        printf("%d ", arr[i]);
+    }
 
     return 0;
 }

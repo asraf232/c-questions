@@ -1,90 +1,63 @@
 /*
 Requirement:
-    To write a C program to merge two sorted arrays into
-    a single sorted array without using any sorting function.
+    To write a C program using a structure to add two
+    complex numbers and display the result.
 
 Design (Algorithm):
     1. Start the program.
-    2. Get the sizes and elements of two sorted arrays.
-    3. Initialize three index variables for the two input
-       arrays and the merged array.
-    4. Compare the elements of both arrays.
-    5. Copy the smaller element into the merged array.
-    6. Repeat until all elements of either array are copied.
-    7. Copy the remaining elements of the first or second array.
-    8. Display the merged sorted array.
-    9. Stop the program.
+    2. Define a structure named Complex with real and
+       imaginary parts.
+    3. Get the real and imaginary parts of two complex numbers.
+    4. Create a function to add the two complex numbers.
+    5. Add the real parts and imaginary parts separately.
+    6. Create a function to display the complex number.
+    7. Display the sum of the two complex numbers.
+    8. Stop the program.
 
 Output:
-    Enter the size of the first array: 4
-    Enter the first sorted array: 10 20 30 40
-    Enter the size of the second array: 3
-    Enter the second sorted array: 15 25 35
-    Merged sorted array: 10 15 20 25 30 35 40
+    Enter the real and imaginary parts of the first number: 3 4
+    Enter the real and imaginary parts of the second number: 2 5
+    Sum of complex numbers: 5 + 9i
 */
+
 
 #include <stdio.h>
 
+struct Complex
+{
+    float real;
+    float imaginary;
+};
+
+struct Complex addComplex(struct Complex c1, struct Complex c2)
+{
+    struct Complex result;
+
+    result.real = c1.real + c2.real;
+    result.imaginary = c1.imaginary + c2.imaginary;
+
+    return result;
+}
+
+void displayComplex(struct Complex c)
+{
+    printf("%.2f + %.2fi\n", c.real, c.imaginary);
+}
+
 int main()
 {
-    int a[100], b[100], c[200];
-    int n1, n2, i = 0, j = 0, k = 0;
+    struct Complex c1, c2, sum;
 
-    printf("Enter the size of the first array: ");
-    scanf("%d", &n1);
+    printf("Enter the real and imaginary parts of the first number: ");
+    scanf("%f %f", &c1.real, &c1.imaginary);
 
-    printf("Enter the first sorted array: ");
-    for (i = 0; i < n1; i++)
-    {
-        scanf("%d", &a[i]);
-    }
+    printf("Enter the real and imaginary parts of the second number: ");
+    scanf("%f %f", &c2.real, &c2.imaginary);
 
-    printf("Enter the size of the second array: ");
-    scanf("%d", &n2);
+    sum = addComplex(c1, c2);
 
-    printf("Enter the second sorted array: ");
-    for (j = 0; j < n2; j++)
-    {
-        scanf("%d", &b[j]);
-    }
-
-    i = 0;
-    j = 0;
-
-    while (i < n1 && j < n2)
-    {
-        if (a[i] <= b[j])
-        {
-            c[k] = a[i];
-            i++;
-        }
-        else
-        {
-            c[k] = b[j];
-            j++;
-        }
-        k++;
-    }
-
-    while (i < n1)
-    {
-        c[k] = a[i];
-        i++;
-        k++;
-    }
-
-    while (j < n2)
-    {
-        c[k] = b[j];
-        j++;
-        k++;
-    }
-
-    printf("Merged sorted array: ");
-    for (i = 0; i < k; i++)
-    {
-        printf("%d ", c[i]);
-    }
+    printf("Sum of complex numbers: ");
+    displayComplex(sum);
 
     return 0;
 }

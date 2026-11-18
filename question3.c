@@ -1,47 +1,36 @@
 /*
    Requirement:
-               To print a pyramid of stars for a given number n.
+               To calculate the factorial of a given positive integer.
 
    Design (Algorithm):
-                     1. Get the value of n from the user.
-                     2. Use a "for" loop to print each row.
-                     3. Use another "for" loop to print spaces
-                        and stars in each row.
-                     4. Move to the next line after printing
-                        each row.
+                     1. Get an integer from the user.
+                     2. Initialize the variable "fact" to 1.
+                     3. Use a "for" loop to multiply the numbers
+                        from 1 to the given number.
+                     4. Store the result in the variable "fact".
+                     5. Print the factorial of the given number.
 
    Output:
-           Enter the number: 5
-               *
-              ***
-             *****
-            *******
-           *********
+           Enter a number: 5
+           Factorial = 120
 */
 
 #include <stdio.h>
 
 int main()
 {
-    int n;
+    int num, i;
+    unsigned long long fact = 1;
 
-    printf("Enter the number: ");
-    scanf("%d", &n);
+    printf("Enter a number: ");
+    scanf("%d", &num);
 
-    for (int i = 1; i <= n; i++)
+    for (i = 1; i <= num; i++)
     {
-        for (int j = 1; j <= n - i; j++)
-        {
-            printf(" ");
-        }
-
-        for (int k = 1; k <= (2 * i - 1); k++)
-        {
-            printf("*");
-        }
-
-        printf("\n");
+        fact = fact * i;
     }
+
+    printf("Factorial = %llu", fact);
 
     return 0;
 }

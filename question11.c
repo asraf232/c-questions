@@ -1,83 +1,60 @@
 /*
    Requirement:
-               To convert a decimal number to any base between
-               2 and 16 using functions.
+               To convert an integer into a string of characters.
 
    Design (Algorithm):
-                     1. Get a decimal number and the target base
-                        from the user.
-                     2. Pass the number and base to a function.
-                     3. Divide the number by the target base and
-                        store the remainders in an array.
-                     4. Repeat the process until the number
-                        becomes zero.
-                     5. Convert remainders from 10 to 15 into
-                        letters A to F.
-                     6. Print the remainders in reverse order
-                        to get the converted number.
+                     1. Get an integer from the user.
+                     2. Check whether the number is negative.
+                     3. Extract each digit using the modulus (%)
+                        operator and convert it into a character.
+                     4. Store the digits in a character array.
+                     5. Reverse the digits to get the correct order.
+                     6. Add the null character at the end and
+                        display the resulting string.
 
    Output:
-           Enter a decimal number: 255
-           Enter the base (2-16): 16
-           Converted number = FF
+           Enter an integer: -1234
+           String value = -1234
 */
 
 #include <stdio.h>
 
-void convertBase(int num, int base)
-{
-    char result[32];
-    int i = 0;
-
-    if (num == 0)
-    {
-        printf("Converted number = 0");
-        return;
-    }
-
-    while (num > 0)
-    {
-        int rem = num % base;
-
-        if (rem < 10)
-        {
-            result[i] = rem + '0';
-        }
-        else
-        {
-            result[i] = rem - 10 + 'A';
-        }
-
-        i++;
-        num = num / base;
-    }
-
-    printf("Converted number = ");
-
-    for (int j = i - 1; j >= 0; j--)
-    {
-        printf("%c", result[j]);
-    }
-}
-
 int main()
 {
-    int num, base;
+    int num, i = 0, j;
+    char str[20], temp;
+    int negative = 0;
 
-    printf("Enter a decimal number: ");
+    printf("Enter an integer: ");
     scanf("%d", &num);
 
-    printf("Enter the base (2-16): ");
-    scanf("%d", &base);
+    if (num < 0)
+    {
+        negative = 1;
+        num = -num;
+    }
 
-    if (num < 0 || base < 2 || base > 16)
+    do
     {
-        printf("Invalid input.");
-    }
-    else
+        str[i++] = (num % 10) + '0';
+        num = num / 10;
+    } while (num > 0);
+
+    if (negative)
     {
-        convertBase(num, base);
+        str[i++] = '-';
     }
+
+    str[i] = '\0';
+
+    for (j = 0; j < i / 2; j++)
+    {
+        temp = str[j];
+        str[j] = str[i - j - 1];
+        str[i - j - 1] = temp;
+    }
+
+    printf("String value = %s", str);
 
     return 0;
 }

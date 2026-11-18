@@ -1,40 +1,42 @@
 /*
    Requirement:
-               To check whether a given integer is even or odd.
+               To generate the Fibonacci series up to a given
+               number of terms.
 
    Design (Algorithm):
-                     1. Get an integer from the user.
-                     2. Use the modulus (%) operator to check
-                        whether the number is divisible by 2.
-                     3. If the remainder is 0, print the number
-                        as even.
-                     4. Otherwise, print the number as odd.
+                     1. Get the number of terms from the user.
+                     2. Initialize the variables "first" to 0
+                        and "second" to 1.
+                     3. Use a "for" loop to print the Fibonacci
+                        series up to the given number of terms.
+                     4. Add the first and second numbers to get
+                        the next number.
+                     5. Update the variables for the next iteration.
 
-   Output 1:
-           Enter a number: 10
-           The number is even.
-
-   Output 2:
-           Enter a number: 7
-           The number is odd.
+   Output:
+           Enter the number of terms: 7
+           Fibonacci series: 0 1 1 2 3 5 8
 */
 
 #include <stdio.h>
 
 int main()
 {
-    int num;
+    int n, i;
+    int first = 0, second = 1, next;
 
-    printf("Enter a number: ");
-    scanf("%d", &num);
+    printf("Enter the number of terms: ");
+    scanf("%d", &n);
 
-    if (num % 2 == 0)
+    printf("Fibonacci series: ");
+
+    for (i = 1; i <= n; i++)
     {
-        printf("The number is even.");
-    }
-    else
-    {
-        printf("The number is odd.");
+        printf("%d ", first);
+
+        next = first + second;
+        first = second;
+        second = next;
     }
 
     return 0;

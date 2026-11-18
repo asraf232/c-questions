@@ -1,25 +1,23 @@
 /*
 Requirement:
-    To write a C program to rotate the elements of an array
-    by n positions in the specified direction (left or right).
+    To write a C program to rearrange an array so that all
+    negative numbers appear before positive numbers while
+    preserving their original order.
 
 Design (Algorithm):
     1. Start the program.
-    2. Get the size and elements of the array.
-    3. Get the number of positions to rotate and the direction.
-    4. Calculate the effective rotation using n % size.
-    5. If the direction is left, shift the elements to the left.
-    6. If the direction is right, shift the elements to the right.
-    7. Use a temporary array to store the rotated elements.
-    8. Display the rotated array.
-    9. Stop the program.
+    2. Get the size and elements of the array from the user.
+    3. Create a temporary array to store the rearranged elements.
+    4. First, copy all negative numbers into the temporary array.
+    5. Next, copy all positive numbers and zeros into it.
+    6. Copy the temporary array back to the original array.
+    7. Display the rearranged array.
+    8. Stop the program.
 
 Output:
-    Enter the size of the array: 5
-    Enter the array elements: 10 20 30 40 50
-    Enter the number of positions: 2
-    Enter the direction (L/R): L
-    Rotated array: 30 40 50 10 20
+    Enter the size of the array: 6
+    Enter the array elements: 4 -2 0 -5 3 -1
+    Rearranged array: -2 -5 -1 4 0 3
 */
 
 #include <stdio.h>
@@ -27,13 +25,12 @@ Output:
 int main()
 {
     int arr[100], temp[100];
-    int n, i, k;
-    char direction;
+    int n, i, j = 0;
 
     printf("Enter the size of the array: ");
     scanf("%d", &n);
 
-    if (n <= 0 || n > 100)
+    if (n < 1 || n > 100)
     {
         printf("Invalid array size.\n");
         return 0;
@@ -45,38 +42,33 @@ int main()
         scanf("%d", &arr[i]);
     }
 
-    printf("Enter the number of positions: ");
-    scanf("%d", &k);
-
-    printf("Enter the direction (L/R): ");
-    scanf(" %c", &direction);
-
-    k = k % n;
-
-    if (direction == 'L' || direction == 'l')
-    {
-        for (i = 0; i < n; i++)
-        {
-            temp[i] = arr[(i + k) % n];
-        }
-    }
-    else if (direction == 'R' || direction == 'r')
-    {
-        for (i = 0; i < n; i++)
-        {
-            temp[i] = arr[(i - k + n) % n];
-        }
-    }
-    else
-    {
-        printf("Invalid direction.\n");
-        return 0;
-    }
-
-    printf("Rotated array: ");
     for (i = 0; i < n; i++)
     {
-        printf("%d ", temp[i]);
+        if (arr[i] < 0)
+        {
+            temp[j] = arr[i];
+            j++;
+        }
+    }
+
+    for (i = 0; i < n; i++)
+    {
+        if (arr[i] >= 0)
+        {
+            temp[j] = arr[i];
+            j++;
+        }
+    }
+
+    for (i = 0; i < n; i++)
+    {
+        arr[i] = temp[i];
+    }
+
+    printf("Rearranged array: ");
+    for (i = 0; i < n; i++)
+    {
+        printf("%d ", arr[i]);
     }
 
     return 0;

@@ -1,59 +1,48 @@
 /*
-   Requirement:
-               To check whether a given string is a pangram or not.
+Requirement:
+    To write a C program to toggle n consecutive bits
+    of an integer starting from a given bit position.
 
-   Design (Algorithm):
-                     1. Get a sentence from the user.
-                     2. Initialize an array to store the presence
-                        of all 26 letters of the alphabet.
-                     3. Use a loop to check each character in
-                        the string.
-                     4. Convert uppercase letters into lowercase
-                        and mark the corresponding alphabet.
-                     5. Check whether all 26 letters are present.
-                     6. If all letters are present, print that
-                        the string is a pangram; otherwise, print
-                        that it is not a pangram.
+Design (Algorithm):
+    1. Start the program.
+    2. Get an integer, starting bit position, and number
+       of bits to toggle from the user.
+    3. Create a mask by shifting 1 to the starting position.
+    4. Use a loop to toggle n consecutive bits.
+    5. Use the XOR (^) operator to toggle each bit.
+    6. Display the modified number.
+    7. Stop the program.
 
-   Output:
-           Enter a sentence: The quick brown fox jumps over the lazy dog
-           The string is a pangram.
+Output:
+    Enter an integer: 10
+    Enter starting bit position: 1
+    Enter number of bits to toggle: 3
+    Number after toggling bits: 4
 */
 
 #include <stdio.h>
-#include <ctype.h>
 
 int main()
 {
-    char str[200];
-    int alphabet[26] = {0};
-    int i, count = 0;
+    unsigned int num, mask;
+    int pos, n, i;
 
-    printf("Enter a sentence: ");
-    fgets(str, sizeof(str), stdin);
+    printf("Enter an integer: ");
+    scanf("%u", &num);
 
-    for (i = 0; str[i] != '\0'; i++)
+    printf("Enter starting bit position: ");
+    scanf("%d", &pos);
+
+    printf("Enter number of bits to toggle: ");
+    scanf("%d", &n);
+
+    for (i = 0; i < n; i++)
     {
-        char ch = tolower((unsigned char)str[i]);
-
-        if (ch >= 'a' && ch <= 'z')
-        {
-            if (alphabet[ch - 'a'] == 0)
-            {
-                alphabet[ch - 'a'] = 1;
-                count++;
-            }
-        }
+        mask = 1U << (pos + i);
+        num = num ^ mask;
     }
 
-    if (count == 26)
-    {
-        printf("The string is a pangram.");
-    }
-    else
-    {
-        printf("The string is not a pangram.");
-    }
+    printf("Number after toggling bits: %u\n", num);
 
     return 0;
 }

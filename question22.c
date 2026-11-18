@@ -1,58 +1,84 @@
 /*
 Requirement:
-    To write a C program to replace n bits of the first
-    number with n bits from the second number, starting
-    from a given bit position.
+    To write a C program to find the second largest and
+    second smallest elements in an array without sorting.
 
 Design (Algorithm):
     1. Start the program.
-    2. Get two integers, a starting bit position, and
-       the number of bits to replace.
-    3. Create a mask containing n number of 1s.
-    4. Clear n bits in the first number at the given
-       position using bitwise AND and NOT operators.
-    5. Extract n bits from the second number.
-    6. Shift these bits to the given position.
-    7. Combine both numbers using the bitwise OR operator.
-    8. Display the final result.
-    9. Stop the program.
+    2. Get the size and elements of the array from the user.
+    3. Initialize the largest and smallest values using
+       the first element.
+    4. Find the largest and smallest elements in the array.
+    5. Find the second largest and second smallest distinct
+       elements without sorting the array.
+    6. If second largest or second smallest does not exist,
+       display an appropriate message.
+    7. Otherwise, display both values.
+    8. Stop the program.
 
 Output:
-    Enter the first number: 15
-    Enter the second number: 2
-    Enter starting bit position: 1
-    Enter number of bits to replace: 2
-    Result after replacing bits: 13
+    Enter the size of the array: 5
+    Enter the array elements: 10 20 5 40 30
+    Second largest element: 30
+    Second smallest element: 10
 */
 
 #include <stdio.h>
+#include <limits.h>
 
 int main()
 {
-    unsigned int num1, num2, mask, result;
-    int pos, n;
+    int arr[100], n, i;
+    int largest = INT_MIN, secondLargest = INT_MIN;
+    int smallest = INT_MAX, secondSmallest = INT_MAX;
 
-    printf("Enter the first number: ");
-    scanf("%u", &num1);
-
-    printf("Enter the second number: ");
-    scanf("%u", &num2);
-
-    printf("Enter starting bit position: ");
-    scanf("%d", &pos);
-
-    printf("Enter number of bits to replace: ");
+    printf("Enter the size of the array: ");
     scanf("%d", &n);
 
-    mask = (1U << n) - 1;
+    if (n < 2 || n > 100)
+    {
+        printf("Invalid array size.\n");
+        return 0;
+    }
 
-    num1 = num1 & ~(mask << pos);
+    printf("Enter the array elements: ");
+    for (i = 0; i < n; i++)
+    {
+        scanf("%d", &arr[i]);
+    }
 
-    num2 = (num2 & mask) << pos;
+    for (i = 0; i < n; i++)
+    {
+        if (arr[i] > largest)
+        {
+            secondLargest = largest;
+            largest = arr[i];
+        }
+        else if (arr[i] > secondLargest && arr[i] != largest)
+        {
+            secondLargest = arr[i];
+        }
 
-    result = num1 | num2;
+        if (arr[i] < smallest)
+        {
+            secondSmallest = smallest;
+            smallest = arr[i];
+        }
+        else if (arr[i] < secondSmallest && arr[i] != smallest)
+        {
+            secondSmallest = arr[i];
+        }
+    }
 
-    printf("Result after replacing bits: %u\n", result);
+    if (secondLargest == INT_MIN || secondSmallest == INT_MAX)
+    {
+        printf("Second largest and second smallest distinct elements do not exist.\n");
+    }
+    else
+    {
+        printf("Second largest element: %d\n", secondLargest);
+        printf("Second smallest element: %d\n", secondSmallest);
+    }
 
     return 0;
 }
